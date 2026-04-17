@@ -37,14 +37,14 @@ export default function ProjectGallery() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
+          variants={{ visible: { transition: { staggerChildren: 0.18 } } }}
         >
           {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+                hidden: { opacity: 0, x: 80, scale: 0.97 },
+                visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
               }}
             >
               <ProjectCard project={project} />
