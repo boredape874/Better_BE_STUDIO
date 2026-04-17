@@ -13,62 +13,56 @@ function DiscordIcon() {
 export default function Contact() {
   return (
     <section id="contact" className="py-32 px-6 bg-white">
-      <motion.div
-        className="max-w-lg mx-auto text-center"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-      >
-        <div className="overflow-hidden mb-2">
+      <div className="max-w-md mx-auto text-center">
+
+        <motion.p
+          className="text-[10px] font-semibold tracking-[0.45em] uppercase text-[#111111]/25 mb-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          Contact
+        </motion.p>
+
+        <div className="overflow-hidden mb-14">
           <motion.h2
             className="text-4xl font-black text-[#111111] tracking-tight"
             initial={{ y: '100%' }}
             whileInView={{ y: '0%' }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             제작 문의
           </motion.h2>
         </div>
 
         <motion.p
-          className="text-xs tracking-[0.3em] uppercase text-[#111111]/30 mb-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          Contact
-        </motion.p>
-
-        <motion.p
-          className="text-[#111111]/55 mb-12 leading-relaxed"
+          className="text-sm text-[#111111]/40 mb-12 leading-loose"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.35 }}
+          transition={{ duration: 0.9, delay: 0.25 }}
         >
-          HUD, 애드온, 리소스팩 등 어떤 주문이든<br />디스코드 서버에서 편하게 말씀해 주세요.
+          HUD, 애드온, 리소스팩 등<br />디스코드에서 편하게 말씀해 주세요
         </motion.p>
 
         <motion.a
           href={DISCORD_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 bg-[#5865F2] text-white px-10 py-4 text-sm font-bold
-                     hover:bg-[#4752C4] transition-colors duration-200"
+          className="inline-flex items-center gap-3 bg-[#5865F2] text-white px-10 py-4 text-sm font-bold hover:bg-[#4752C4] transition-colors duration-300"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.45 }}
+          transition={{ duration: 0.9, delay: 0.4 }}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
         >
           <DiscordIcon />
           디스코드 서버 참여하기
         </motion.a>
-      </motion.div>
+      </div>
     </section>
   )
 }
