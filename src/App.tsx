@@ -7,7 +7,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 
 export default function App() {
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionConfig reducedMotion="never">
       <div className="font-sans antialiased">
         <Navbar />
         <main>

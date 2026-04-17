@@ -23,8 +23,8 @@ export default function Hero() {
         <div className="overflow-hidden mb-10">
           <motion.p
             className="text-[11px] font-semibold tracking-[0.5em] uppercase text-[#111111]/30"
-            initial={{ y: '100%' }}
-            animate={{ y: '0%' }}
+            initial={{ y: 24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.0, delay: 0.1, ease: 'easeOut' }}
           >
             Minecraft BE · 주문제작 스튜디오
@@ -34,10 +34,10 @@ export default function Hero() {
         {/* 타이틀 */}
         <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.88] tracking-tight mb-12">
           {titleLines.map(({ text, delay }) => (
-            <div key={text} className="overflow-hidden">
+            <div key={text} className="overflow-hidden py-1">
               <motion.div
-                initial={{ y: '105%' }}
-                animate={{ y: '0%' }}
+                initial={{ y: 120, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1.1, delay, ease: [0.16, 1, 0.3, 1] }}
               >
                 {text}
@@ -47,16 +47,14 @@ export default function Hero() {
         </h1>
 
         {/* 설명 */}
-        <div className="overflow-hidden mb-14">
-          <motion.p
-            className="text-base text-[#111111]/40 max-w-[280px] leading-loose"
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: '0%', opacity: 1 }}
-            transition={{ duration: 1.0, delay: 0.75, ease: 'easeOut' }}
-          >
-            HUD, 애드온, 리소스팩<br />원하는 것을 만들어 드립니다
-          </motion.p>
-        </div>
+        <motion.p
+          className="text-base text-[#111111]/40 max-w-[280px] leading-loose mb-14"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.0, delay: 0.75, ease: 'easeOut' }}
+        >
+          HUD, 애드온, 리소스팩<br />원하는 것을 만들어 드립니다
+        </motion.p>
 
         {/* 버튼 */}
         <motion.div
