@@ -20,7 +20,7 @@ export default function Navbar() {
       transition={{ duration: 0.5 }}
     >
       <span className="font-bold text-[#111111] tracking-tight text-lg">
-        Better BE Studio
+        Better BE Studio <span className="text-xs font-normal text-[#111111]/40 tracking-widest uppercase ml-1">MC:BE</span>
       </span>
       <a
         href="#contact"

@@ -13,7 +13,7 @@ export default function App() {
         <Contact />
       </main>
       <footer className="py-8 text-center text-xs text-[#111111]/30 border-t border-[#E5E5E5]">
-        © 2024 Better BE Studio
+        © 2025 Better BE Studio — Minecraft BE 전문 주문제작
       </footer>
     </div>
   )
