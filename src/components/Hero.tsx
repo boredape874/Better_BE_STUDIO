@@ -51,6 +51,7 @@ export default function Hero() {
           100% { background-position: 200% center; }
         }
         .title-flow {
+          display: block;
           background: linear-gradient(
             90deg,
             #111111 0%,
@@ -85,11 +86,13 @@ export default function Hero() {
         </div>
 
         {/* 타이틀 — 리빌 후 그라데이션 흐름 */}
-        <h1
-          className="title-flow text-[clamp(4.5rem,13vw,10rem)] font-black leading-[0.92] tracking-tight mb-12"
-        >
-          <LineReveal delay={0.35}>Better BE</LineReveal>
-          <LineReveal delay={0.52}>Studio</LineReveal>
+        <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black leading-[0.92] tracking-tight mb-12">
+          <LineReveal delay={0.35}>
+            <span className="title-flow">Better BE</span>
+          </LineReveal>
+          <LineReveal delay={0.52}>
+            <span className="title-flow">Studio</span>
+          </LineReveal>
         </h1>
 
         {/* 설명 */}
