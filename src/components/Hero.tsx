@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { motion, useScroll, useTransform, useAnimationControls } from 'framer-motion'
+import { useRef, useEffect } from 'react'
 import MagneticButton from './MagneticButton'
 import TextScramble from './TextScramble'
 
@@ -34,6 +34,62 @@ function LineReveal({
   )
 }
 
+// 리빌 완료 후 float + shimmer 아이들 컴포넌트
+function TitleIdle({ children }: { children: React.ReactNode }) {
+  const floatCtrl = useAnimationControls()
+  const shimmerCtrl = useAnimationControls()
+
+  useEffect(() => {
+    // 리빌 끝날 때까지 기다렸다가 float 시작
+    const floatTimer = setTimeout(async () => {
+      floatCtrl.start({
+        y: [0, -8, 0],
+        transition: { duration: 5.5, ease: 'easeInOut', repeat: Infinity },
+      })
+    }, 1800)
+
+    // shimmer는 조금 더 늦게, 이후 7초마다 반복
+    const shimmerLoop = async () => {
+      await shimmerCtrl.start({
+        x: ['-130%', '130%'],
+        transition: { duration: 1.3, ease: [0.4, 0, 0.2, 1] },
+      })
+      setTimeout(shimmerLoop, 7000)
+    }
+    const shimmerTimer = setTimeout(shimmerLoop, 2600)
+
+    return () => {
+      clearTimeout(floatTimer)
+      clearTimeout(shimmerTimer)
+    }
+  }, [floatCtrl, shimmerCtrl])
+
+  return (
+    <div className="relative mb-12">
+      <motion.div animate={floatCtrl}>
+        {children}
+      </motion.div>
+
+      {/* Shimmer — 검은 텍스트 위에서 반투명 흰 빛이 스윽 */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ borderRadius: 0 }}
+      >
+        <motion.div
+          animate={shimmerCtrl}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.7) 50%, transparent 80%)',
+            mixBlendMode: 'soft-light',
+          }}
+        />
+      </motion.div>
+    </div>
+  )
+}
+
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
@@ -60,41 +116,13 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* 타이틀 — 리빌 후 float + shimmer 아이들 애니메이션 */}
-        <div className="relative mb-12">
-          <motion.h1
-            className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight"
-            // 리빌 완료 후 천천히 float
-            animate={{ y: [0, -7, 0] }}
-            transition={{
-              delay: 1.8,
-              duration: 5.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          >
+        {/* 타이틀 */}
+        <TitleIdle>
+          <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight">
             <LineReveal delay={0.35}>Better BE</LineReveal>
             <LineReveal delay={0.52}>Studio</LineReveal>
-          </motion.h1>
-
-          {/* Shimmer sweep — 7초마다 하이라이트가 스윽 지나감 */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                'linear-gradient(105deg, transparent 25%, rgba(255,255,255,0.55) 50%, transparent 75%)',
-              mixBlendMode: 'overlay',
-            }}
-            animate={{ x: ['-130%', '130%'] }}
-            transition={{
-              delay: 2.4,
-              duration: 1.4,
-              repeat: Infinity,
-              repeatDelay: 6,
-              ease: [0.4, 0, 0.2, 1],
-            }}
-          />
-        </div>
+          </h1>
+        </TitleIdle>
 
         {/* 설명 */}
         <div className="overflow-hidden mb-14">
