@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform, useAnimationControls } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import MagneticButton from './MagneticButton'
 import TextScramble from './TextScramble'
 
@@ -34,62 +34,6 @@ function LineReveal({
   )
 }
 
-// 리빌 완료 후 float + shimmer 아이들 컴포넌트
-function TitleIdle({ children }: { children: React.ReactNode }) {
-  const floatCtrl = useAnimationControls()
-  const shimmerCtrl = useAnimationControls()
-
-  useEffect(() => {
-    // 리빌 끝날 때까지 기다렸다가 float 시작
-    const floatTimer = setTimeout(async () => {
-      floatCtrl.start({
-        y: [0, -8, 0],
-        transition: { duration: 5.5, ease: 'easeInOut', repeat: Infinity },
-      })
-    }, 1800)
-
-    // shimmer는 조금 더 늦게, 이후 7초마다 반복
-    const shimmerLoop = async () => {
-      await shimmerCtrl.start({
-        x: ['-130%', '130%'],
-        transition: { duration: 1.3, ease: [0.4, 0, 0.2, 1] },
-      })
-      setTimeout(shimmerLoop, 7000)
-    }
-    const shimmerTimer = setTimeout(shimmerLoop, 2600)
-
-    return () => {
-      clearTimeout(floatTimer)
-      clearTimeout(shimmerTimer)
-    }
-  }, [floatCtrl, shimmerCtrl])
-
-  return (
-    <div className="relative mb-12">
-      <motion.div animate={floatCtrl}>
-        {children}
-      </motion.div>
-
-      {/* Shimmer — 검은 텍스트 위에서 반투명 흰 빛이 스윽 */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none overflow-hidden"
-        style={{ borderRadius: 0 }}
-      >
-        <motion.div
-          animate={shimmerCtrl}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.7) 50%, transparent 80%)',
-            mixBlendMode: 'soft-light',
-          }}
-        />
-      </motion.div>
-    </div>
-  )
-}
-
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
@@ -100,6 +44,25 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 bg-white overflow-hidden"
     >
+      {/* float + shimmer 키프레임 */}
+      <style>{`
+        @keyframes heroFloat {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-9px); }
+        }
+        .hero-title-float {
+          animation: heroFloat 5.5s ease-in-out 1.8s infinite;
+        }
+        @keyframes heroShimmer {
+          0%   { transform: translateX(-140%); }
+          18%  { transform: translateX(140%); }
+          100% { transform: translateX(140%); }
+        }
+        .hero-title-shimmer {
+          animation: heroShimmer 8s linear 2.6s infinite;
+        }
+      `}</style>
+
       <motion.div
         className="relative z-10 flex flex-col items-center"
         style={{ y: contentY }}
@@ -116,13 +79,27 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* 타이틀 */}
-        <TitleIdle>
-          <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight">
-            <LineReveal delay={0.35}>Better BE</LineReveal>
-            <LineReveal delay={0.52}>Studio</LineReveal>
-          </h1>
-        </TitleIdle>
+        {/* 타이틀 — 리빌 후 float + shimmer */}
+        <div className="relative mb-12">
+          {/* float wrapper */}
+          <div className="hero-title-float">
+            <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight">
+              <LineReveal delay={0.35}>Better BE</LineReveal>
+              <LineReveal delay={0.52}>Studio</LineReveal>
+            </h1>
+          </div>
+
+          {/* shimmer overlay */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div
+              className="hero-title-shimmer absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(105deg, transparent 20%, rgba(200,200,200,0.35) 50%, transparent 80%)',
+              }}
+            />
+          </div>
+        </div>
 
         {/* 설명 */}
         <div className="overflow-hidden mb-14">
