@@ -42,7 +42,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="snap-section relative flex flex-col justify-center items-center text-center px-6 bg-white overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 bg-white overflow-hidden"
     >
       {/* 타이틀 그라데이션 흐름 */}
       <style>{`
