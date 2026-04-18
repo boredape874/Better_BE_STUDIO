@@ -4,16 +4,16 @@ import { projects } from '@/data/projects'
 
 export default function ProjectGallery() {
   return (
-    <section id="projects" className="snap-section bg-[#F8F8F8] flex items-center">
-      <div className="w-full max-w-5xl mx-auto px-6">
+    <section id="projects" className="py-32 px-6 bg-[#F8F8F8]">
+      <div className="max-w-5xl mx-auto">
 
-        <div className="mb-12">
+        <div className="mb-16">
           <motion.p
             className="text-[10px] font-semibold tracking-[0.45em] uppercase text-[#111111]/25 mb-4"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.8 }}
           >
             Projects
           </motion.p>
@@ -23,7 +23,7 @@ export default function ProjectGallery() {
               initial={{ y: '105%' }}
               whileInView={{ y: '0%' }}
               viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               작업물
             </motion.h2>
@@ -34,17 +34,15 @@ export default function ProjectGallery() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.3 } },
-          }}
+          viewport={{ once: true, margin: '-60px' }}
+          variants={{ visible: { transition: { staggerChildren: 0.18 } } }}
         >
           {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={{
-                hidden: { opacity: 0, y: 36 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+                hidden: { opacity: 0, x: 80, scale: 0.97 },
+                visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
               }}
             >
               <ProjectCard project={project} />

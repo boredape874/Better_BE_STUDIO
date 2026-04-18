@@ -12,15 +12,15 @@ function DiscordIcon() {
 
 export default function Contact() {
   return (
-    <section id="contact" className="snap-section bg-white flex items-center justify-center">
-      <div className="max-w-md mx-auto px-6 text-center">
+    <section id="contact" className="py-32 px-6 bg-white">
+      <div className="max-w-md mx-auto text-center">
 
         <motion.p
           className="text-[10px] font-semibold tracking-[0.45em] uppercase text-[#111111]/25 mb-4"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.8 }}
         >
           Contact
         </motion.p>
@@ -31,7 +31,7 @@ export default function Contact() {
             initial={{ y: '105%' }}
             whileInView={{ y: '0%' }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             제작 문의
           </motion.h2>
@@ -39,10 +39,10 @@ export default function Contact() {
 
         <motion.p
           className="text-sm text-[#111111]/40 mb-12 leading-loose"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.35 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
         >
           HUD, 애드온, 리소스팩 등<br />디스코드에서 편하게 말씀해 주세요
         </motion.p>
@@ -52,10 +52,10 @@ export default function Contact() {
           target="_blank"
           rel="noopener noreferrer"
           className="relative overflow-hidden inline-flex items-center gap-3 bg-[#5865F2] text-white px-10 py-4 text-sm font-bold"
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ type: 'spring', stiffness: 280, damping: 22, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           whileHover="hover"
           whileTap={{ scale: 0.97 }}
         >
