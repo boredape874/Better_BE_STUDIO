@@ -12,25 +12,53 @@ function DiscordIcon() {
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-32 px-6 bg-white overflow-hidden">
+    <section id="contact" className="snap-section relative bg-white overflow-hidden flex items-center justify-center">
 
-      {/* 커튼 — 위로 슬라이드하며 섹션 오픈 */}
+      {/* ── 커튼 타이틀카드 ── */}
       <motion.div
-        className="absolute inset-0 bg-[#111111] z-10 pointer-events-none"
+        className="absolute inset-0 bg-[#111111] z-20 pointer-events-none flex flex-col items-center justify-center gap-5"
         initial={{ y: '0%' }}
         whileInView={{ y: '-101%' }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-      />
+        viewport={{ once: false, amount: 0.4 }}
+        transition={{ duration: 1.1, delay: 1.0, ease: [0.76, 0, 0.24, 1] }}
+      >
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="text-white/30 text-[11px] tracking-[0.5em] uppercase mb-5">
+            02 · Contact
+          </p>
+          <h2
+            className="text-white font-black tracking-tight leading-none"
+            style={{ fontSize: 'clamp(4rem, 12vw, 9rem)' }}
+          >
+            제작 문의
+          </h2>
+        </motion.div>
 
-      <div className="max-w-md mx-auto text-center">
+        {/* 하단 진행 바 */}
+        <motion.div
+          className="absolute bottom-0 left-0 h-px bg-white/20"
+          initial={{ width: '0%' }}
+          whileInView={{ width: '100%' }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.95, delay: 0.15, ease: 'easeInOut' }}
+        />
+      </motion.div>
+
+      {/* ── 실제 콘텐츠 ── */}
+      <div className="relative z-10 max-w-md mx-auto px-6 text-center">
 
         <motion.p
           className="text-[10px] font-semibold tracking-[0.45em] uppercase text-[#111111]/25 mb-4"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.6, ease: 'easeOut' }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           Contact
         </motion.p>
@@ -41,7 +69,7 @@ export default function Contact() {
             initial={{ y: '105%' }}
             whileInView={{ y: '0%' }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             제작 문의
           </motion.h2>
@@ -52,7 +80,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.9, ease: 'easeOut' }}
+          transition={{ duration: 0.7, delay: 0.45 }}
         >
           HUD, 애드온, 리소스팩 등<br />디스코드에서 편하게 말씀해 주세요
         </motion.p>
@@ -65,12 +93,12 @@ export default function Contact() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ type: 'spring', stiffness: 280, damping: 22, delay: 1.05 }}
+          transition={{ type: 'spring', stiffness: 280, damping: 22, delay: 0.6 }}
           whileHover="hover"
           whileTap={{ scale: 0.97 }}
         >
           <motion.span
-            className="absolute inset-0 bg-[#4752C4] origin-bottom"
+            className="absolute inset-0 bg-[#4752C4]"
             variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
             initial="initial"
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}

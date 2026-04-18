@@ -16,14 +16,14 @@ export default function App() {
         <ScrollProgress />
         <PageIntro />
         <Navbar />
-        <main>
+        <div id="snap-root">
           <Hero />
           <ProjectGallery />
           <Contact />
-        </main>
-        <footer className="py-8 text-center text-xs text-[#111111]/25 border-t border-[#111111]/6">
-          © 2025 Better BE Studio
-        </footer>
+          <footer className="snap-section flex items-center justify-center py-8 text-center text-xs text-[#111111]/25 border-t border-[#111111]/6 min-h-0" style={{ minHeight: 'auto', scrollSnapAlign: 'none' }}>
+            © 2025 Better BE Studio
+          </footer>
+        </div>
         <ScrollToTop />
       </div>
     </MotionConfig>
