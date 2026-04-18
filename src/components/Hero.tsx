@@ -47,8 +47,8 @@ export default function Hero() {
       {/* 타이틀 그라데이션 흐름 */}
       <style>{`
         @keyframes titleFlow {
-          0%   { background-position: 0% center; }
-          100% { background-position: 200% center; }
+          0%   { background-position: 200% center; }
+          100% { background-position: 0% center; }
         }
         .title-flow {
           display: block;
