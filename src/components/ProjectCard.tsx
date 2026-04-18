@@ -74,8 +74,12 @@ export default function ProjectCard({ project }: Props) {
 
       {/* 카드 정보 */}
       <div className="p-5">
-        <h3 className="font-bold text-[#111111] text-base mb-1.5 group-hover:text-[#111111] transition-colors">
+        <h3 className="relative inline-block font-bold text-[#111111] text-base mb-1.5 overflow-hidden">
           {project.title}
+          <motion.span
+            className="absolute bottom-0 left-0 h-px bg-[#111111] w-full"
+            variants={{ rest: { scaleX: 0, originX: 0 }, hover: { scaleX: 1, originX: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } } }}
+          />
         </h3>
         <p className="text-sm text-[#111111]/55 mb-4 leading-relaxed">{project.description}</p>
         {project.price && (

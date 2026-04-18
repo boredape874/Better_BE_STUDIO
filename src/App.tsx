@@ -4,11 +4,13 @@ import Hero from '@/components/Hero'
 import ProjectGallery from '@/components/ProjectGallery'
 import Contact from '@/components/Contact'
 import ScrollToTop from '@/components/ScrollToTop'
+import PageIntro from '@/components/PageIntro'
 
 export default function App() {
   return (
     <MotionConfig reducedMotion="never">
       <div className="font-sans antialiased">
+        <PageIntro />
         <Navbar />
         <main>
           <Hero />

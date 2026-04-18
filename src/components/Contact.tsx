@@ -51,16 +51,26 @@ export default function Contact() {
           href={DISCORD_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 bg-[#5865F2] text-white px-10 py-4 text-sm font-bold hover:bg-[#4752C4] transition-colors duration-300"
+          className="relative overflow-hidden inline-flex items-center gap-3 bg-[#5865F2] text-white px-10 py-4 text-sm font-bold"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.4 }}
-          whileHover={{ scale: 1.03 }}
+          whileHover="hover"
           whileTap={{ scale: 0.97 }}
         >
-          <DiscordIcon />
-          디스코드 서버 참여하기
+          {/* fill overlay */}
+          <motion.span
+            className="absolute inset-0 bg-[#4752C4] origin-bottom"
+            variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
+            initial="initial"
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            style={{ transformOrigin: 'bottom' }}
+          />
+          <span className="relative z-10 flex items-center gap-3">
+            <DiscordIcon />
+            디스코드 서버 참여하기
+          </span>
         </motion.a>
       </div>
     </section>
