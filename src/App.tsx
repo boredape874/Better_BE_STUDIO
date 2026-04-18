@@ -3,7 +3,6 @@ import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import ProjectGallery from '@/components/ProjectGallery'
 import Contact from '@/components/Contact'
-import ScrollToTop from '@/components/ScrollToTop'
 import PageIntro from '@/components/PageIntro'
 import Cursor from '@/components/Cursor'
 import ScrollProgress from '@/components/ScrollProgress'
@@ -16,15 +15,11 @@ export default function App() {
         <ScrollProgress />
         <PageIntro />
         <Navbar />
-        <div id="snap-root">
+        <main>
           <Hero />
           <ProjectGallery />
           <Contact />
-          <footer className="snap-section flex items-center justify-center py-8 text-center text-xs text-[#111111]/25 border-t border-[#111111]/6 min-h-0" style={{ minHeight: 'auto', scrollSnapAlign: 'none' }}>
-            © 2025 Better BE Studio
-          </footer>
-        </div>
-        <ScrollToTop />
+        </main>
       </div>
     </MotionConfig>
   )

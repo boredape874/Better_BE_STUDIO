@@ -1,21 +1,7 @@
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
 
 export default function ScrollProgress() {
-  const containerRef = useRef<HTMLElement | null>(null)
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    const el = document.getElementById('snap-root')
-    if (el) {
-      containerRef.current = el as HTMLElement
-      setReady(true)
-    }
-  }, [])
-
-  const { scrollYProgress } = useScroll(
-    ready ? { container: containerRef as React.RefObject<HTMLElement> } : {}
-  )
+  const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 })
 
   return (

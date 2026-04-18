@@ -2,16 +2,10 @@
 
 * { cursor: none !important; }
 
-/* 풀페이지 스크롤 스냅 */
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-
-#snap-root {
-  height: 100vh;
-  overflow-y: scroll;
+/* 풀페이지 스크롤 스냅 — window 스크롤 기준 */
+html {
   scroll-snap-type: y mandatory;
+  overflow-y: scroll;
 }
 
 .snap-section {
