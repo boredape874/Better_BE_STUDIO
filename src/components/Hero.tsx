@@ -2,42 +2,29 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import MagneticButton from './MagneticButton'
 import TextScramble from './TextScramble'
-import FloatingParticles from './FloatingParticles'
 
-const titleLines = [
-  { text: 'Better BE', lineDelay: 0.6 },
-  { text: 'Studio',    lineDelay: 0.75 },
-]
+// ── 공통 스프링 설정 ──────────────────────────────
+const SPRING = { type: 'spring' as const, stiffness: 260, damping: 26, mass: 1 }
 
-function BouncyText({ text, lineDelay }: { text: string; lineDelay: number }) {
-  const chars = text.split('')
+// 줄 단위 클립 리빌 (오버플로 마스크 + 슬라이드업)
+function LineReveal({
+  children,
+  delay = 0,
+  className = '',
+}: {
+  children: React.ReactNode
+  delay?: number
+  className?: string
+}) {
   return (
-    <div className="flex items-end overflow-visible">
-      {chars.map((char, i) => (
-        <motion.span
-          key={i}
-          className={`inline-block${char === ' ' ? ' w-6' : ''}`}
-          initial={{ y: 120, opacity: 0, rotate: -8 }}
-          animate={{ y: 0, opacity: 1, rotate: 0 }}
-          transition={{
-            type: 'spring',
-            stiffness: 380,
-            damping: 12,
-            mass: 0.8,
-            delay: lineDelay + i * 0.055,
-          }}
-          whileHover={{
-            y: -14,
-            transition: {
-              type: 'spring',
-              stiffness: 500,
-              damping: 10,
-            },
-          }}
-        >
-          {char === ' ' ? '\u00A0' : char}
-        </motion.span>
-      ))}
+    <div className={`overflow-hidden ${className}`}>
+      <motion.div
+        initial={{ y: '102%' }}
+        animate={{ y: '0%' }}
+        transition={{ ...SPRING, delay }}
+      >
+        {children}
+      </motion.div>
     </div>
   )
 }
@@ -45,52 +32,53 @@ function BouncyText({ text, lineDelay }: { text: string; lineDelay: number }) {
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '8%'])
 
   return (
     <section
       ref={ref}
       className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 bg-white overflow-hidden"
     >
-      <FloatingParticles />
-
       <motion.div
         className="relative z-10 flex flex-col items-center"
         style={{ y: contentY }}
       >
-        {/* 태그라인 — 스크램블 */}
-        <motion.p
-          className="text-[11px] font-semibold tracking-[0.5em] uppercase text-[#111111]/30 mb-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-        >
-          <TextScramble text="MINECRAFT BE · 주문제작 스튜디오" delay={0.5} />
-        </motion.p>
+        {/* 태그라인 */}
+        <div className="overflow-hidden mb-10">
+          <motion.p
+            className="text-[11px] font-semibold tracking-[0.5em] uppercase text-[#111111]/30"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ ...SPRING, delay: 0.2 }}
+          >
+            <TextScramble text="MINECRAFT BE · 주문제작 스튜디오" delay={0.3} />
+          </motion.p>
+        </div>
 
-        {/* 바운스 타이틀 */}
-        <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight mb-12 select-none">
-          {titleLines.map(({ text, lineDelay }) => (
-            <BouncyText key={text} text={text} lineDelay={lineDelay} />
-          ))}
+        {/* 타이틀 — 줄 단위 클립 리빌 */}
+        <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight mb-12">
+          <LineReveal delay={0.35}>Better BE</LineReveal>
+          <LineReveal delay={0.5}>Studio</LineReveal>
         </h1>
 
         {/* 설명 */}
-        <motion.p
-          className="text-base text-[#111111]/40 max-w-[280px] leading-loose mb-14"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1.0, delay: 1.4, ease: 'easeOut' }}
-        >
-          HUD, 애드온, 리소스팩<br />원하는 것을 만들어 드립니다
-        </motion.p>
+        <div className="overflow-hidden mb-14">
+          <motion.p
+            className="text-base text-[#111111]/40 max-w-[280px] leading-loose"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ ...SPRING, delay: 0.7 }}
+          >
+            HUD, 애드온, 리소스팩<br />원하는 것을 만들어 드립니다
+          </motion.p>
+        </div>
 
         {/* 버튼 */}
         <motion.div
           className="flex gap-3"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 1.6, ease: 'easeOut' }}
+          transition={{ ...SPRING, delay: 0.88 }}
         >
           <MagneticButton>
             <motion.a
@@ -103,13 +91,13 @@ export default function Hero() {
                 className="absolute inset-0 bg-white"
                 variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
                 initial="initial"
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 style={{ transformOrigin: 'bottom' }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
               />
               <motion.span
                 className="relative z-10"
                 variants={{ hover: { color: '#111111' }, initial: { color: '#ffffff' } }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.18 }}
               >
                 제작 문의
               </motion.span>
@@ -127,13 +115,13 @@ export default function Hero() {
                 className="absolute inset-0 bg-[#111111]"
                 variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
                 initial="initial"
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 style={{ transformOrigin: 'bottom' }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
               />
               <motion.span
                 className="relative z-10"
                 variants={{ hover: { color: '#ffffff' }, initial: { color: 'rgba(17,17,17,0.45)' } }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.18 }}
               >
                 작업물
               </motion.span>
@@ -147,11 +135,11 @@ export default function Hero() {
         className="absolute bottom-10 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.0, duration: 0.8 }}
+        transition={{ delay: 1.3, duration: 0.8 }}
       >
         <div className="w-px h-12 overflow-hidden bg-[#111111]/8">
           <motion.div
-            className="w-full h-full bg-[#111111]/35"
+            className="w-full h-full bg-[#111111]/30"
             animate={{ y: ['-100%', '100%'] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           />

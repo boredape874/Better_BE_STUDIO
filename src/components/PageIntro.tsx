@@ -8,7 +8,6 @@ export default function PageIntro() {
   const [phase, setPhase] = useState<'in' | 'out'>('in')
 
   useEffect(() => {
-    // 전체 인트로 시간: 2.8초 후 퇴장
     const t = setTimeout(() => setPhase('out'), 2800)
     return () => clearTimeout(t)
   }, [])
@@ -18,7 +17,7 @@ export default function PageIntro() {
       {phase === 'in' && (
         <motion.div
           className="fixed inset-0 z-[200] bg-[#111111] flex flex-col items-center justify-center overflow-hidden pointer-events-none"
-          exit={{ y: '-100%' }}
+          exit={{ y: '-100%', opacity: 0 }}
           transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
         >
           {/* 가로선 드로우 */}
@@ -30,8 +29,8 @@ export default function PageIntro() {
             style={{ originX: 0 }}
           />
 
-          {/* 브랜드명 — 글자 stagger */}
-          <div className="flex items-center gap-0 overflow-hidden">
+          {/* 브랜드명 */}
+          <div className="flex items-center overflow-hidden">
             {BRAND.split('').map((char, i) => (
               <motion.span
                 key={i}
@@ -39,11 +38,7 @@ export default function PageIntro() {
                 style={{ fontSize: 'clamp(2rem, 6vw, 5rem)' }}
                 initial={{ y: 80, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  duration: 0.55,
-                  delay: 0.5 + i * 0.045,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
+                transition={{ duration: 0.55, delay: 0.5 + i * 0.045, ease: [0.16, 1, 0.3, 1] }}
               >
                 {char === ' ' ? '\u00A0' : char}
               </motion.span>
@@ -60,7 +55,7 @@ export default function PageIntro() {
             {SUB}
           </motion.p>
 
-          {/* 하단 로딩 바 */}
+          {/* 로딩 바 */}
           <motion.div
             className="absolute bottom-0 left-0 h-px bg-white/30"
             initial={{ width: '0%' }}

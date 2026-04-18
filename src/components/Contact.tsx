@@ -25,26 +25,17 @@ export default function Contact() {
           Contact
         </motion.p>
 
-        {/* 바운스 헤딩 */}
-        <div className="flex justify-center mb-14">
-          {'제작 문의'.split('').map((char, i) => (
-            <motion.span
-              key={i}
-              className={`text-4xl font-black text-[#111111] tracking-tight inline-block${char === ' ' ? ' w-4' : ''}`}
-              initial={{ y: 60, opacity: 0, rotate: -6 }}
-              whileInView={{ y: 0, opacity: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                type: 'spring',
-                stiffness: 350,
-                damping: 12,
-                delay: 0.1 + i * 0.07,
-              }}
-              whileHover={{ y: -8, transition: { type: 'spring', stiffness: 500, damping: 10 } }}
-            >
-              {char === ' ' ? '\u00A0' : char}
-            </motion.span>
-          ))}
+        {/* 헤딩 — 클립 리빌 */}
+        <div className="overflow-hidden mb-14">
+          <motion.h2
+            className="text-4xl font-black text-[#111111] tracking-tight"
+            initial={{ y: '100%' }}
+            whileInView={{ y: '0%' }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          >
+            제작 문의
+          </motion.h2>
         </div>
 
         <motion.p
