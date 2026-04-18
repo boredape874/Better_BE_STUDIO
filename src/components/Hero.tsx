@@ -5,9 +5,42 @@ import TextScramble from './TextScramble'
 import FloatingParticles from './FloatingParticles'
 
 const titleLines = [
-  { text: 'Better BE', delay: 0.3 },
-  { text: 'Studio', delay: 0.52 },
+  { text: 'Better BE', lineDelay: 0.6 },
+  { text: 'Studio',    lineDelay: 0.75 },
 ]
+
+function BouncyText({ text, lineDelay }: { text: string; lineDelay: number }) {
+  const chars = text.split('')
+  return (
+    <div className="flex items-end overflow-visible">
+      {chars.map((char, i) => (
+        <motion.span
+          key={i}
+          className={`inline-block${char === ' ' ? ' w-6' : ''}`}
+          initial={{ y: 120, opacity: 0, rotate: -8 }}
+          animate={{ y: 0, opacity: 1, rotate: 0 }}
+          transition={{
+            type: 'spring',
+            stiffness: 380,
+            damping: 12,
+            mass: 0.8,
+            delay: lineDelay + i * 0.055,
+          }}
+          whileHover={{
+            y: -14,
+            transition: {
+              type: 'spring',
+              stiffness: 500,
+              damping: 10,
+            },
+          }}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </motion.span>
+      ))}
+    </div>
+  )
+}
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null)
@@ -15,8 +48,10 @@ export default function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
 
   return (
-    <section ref={ref} className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 bg-white overflow-hidden">
-
+    <section
+      ref={ref}
+      className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 bg-white overflow-hidden"
+    >
       <FloatingParticles />
 
       <motion.div
@@ -28,23 +63,15 @@ export default function Hero() {
           className="text-[11px] font-semibold tracking-[0.5em] uppercase text-[#111111]/30 mb-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
         >
-          <TextScramble text="MINECRAFT BE · 주문제작 스튜디오" delay={0.3} />
+          <TextScramble text="MINECRAFT BE · 주문제작 스튜디오" delay={0.5} />
         </motion.p>
 
-        {/* 타이틀 */}
-        <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.88] tracking-tight mb-12">
-          {titleLines.map(({ text, delay }) => (
-            <div key={text} className="overflow-hidden py-1">
-              <motion.div
-                initial={{ y: 120, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1.1, delay, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {text}
-              </motion.div>
-            </div>
+        {/* 바운스 타이틀 */}
+        <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight mb-12 select-none">
+          {titleLines.map(({ text, lineDelay }) => (
+            <BouncyText key={text} text={text} lineDelay={lineDelay} />
           ))}
         </h1>
 
@@ -53,7 +80,7 @@ export default function Hero() {
           className="text-base text-[#111111]/40 max-w-[280px] leading-loose mb-14"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1.0, delay: 0.75, ease: 'easeOut' }}
+          transition={{ duration: 1.0, delay: 1.4, ease: 'easeOut' }}
         >
           HUD, 애드온, 리소스팩<br />원하는 것을 만들어 드립니다
         </motion.p>
@@ -63,7 +90,7 @@ export default function Hero() {
           className="flex gap-3"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.95, ease: 'easeOut' }}
+          transition={{ duration: 0.9, delay: 1.6, ease: 'easeOut' }}
         >
           <MagneticButton>
             <motion.a
@@ -73,7 +100,7 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
             >
               <motion.span
-                className="absolute inset-0 bg-white origin-bottom"
+                className="absolute inset-0 bg-white"
                 variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
                 initial="initial"
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
@@ -97,7 +124,7 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
             >
               <motion.span
-                className="absolute inset-0 bg-[#111111] origin-bottom"
+                className="absolute inset-0 bg-[#111111]"
                 variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
                 initial="initial"
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
@@ -120,7 +147,7 @@ export default function Hero() {
         className="absolute bottom-10 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
+        transition={{ delay: 2.0, duration: 0.8 }}
       >
         <div className="w-px h-12 overflow-hidden bg-[#111111]/8">
           <motion.div
