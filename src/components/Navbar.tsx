@@ -20,14 +20,25 @@ export default function Navbar() {
       transition={{ duration: 0.5 }}
     >
       <span className="font-bold text-[#111111] tracking-tight text-lg">
-        Better BE Studio <span className="text-xs font-normal text-[#111111]/40 tracking-widest uppercase ml-1">MC:BE</span>
+        Better BE Studio{' '}
+        <span className="text-xs font-normal text-[#111111]/40 tracking-widest uppercase ml-1">MC:BE</span>
       </span>
-      <a
+
+      {/* 밑줄 확장 링크 */}
+      <motion.a
         href="#contact"
-        className="text-sm font-medium text-[#111111] hover:opacity-60 transition-opacity"
+        className="relative text-sm font-medium text-[#111111] overflow-hidden group"
+        whileHover="hover"
       >
         문의하기
-      </a>
+        <motion.span
+          className="absolute bottom-0 left-0 h-px bg-[#111111]"
+          variants={{
+            hover: { width: '100%', transition: { duration: 0.3, ease: 'easeOut' } },
+          }}
+          initial={{ width: '0%' }}
+        />
+      </motion.a>
     </motion.nav>
   )
 }

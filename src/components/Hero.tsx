@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { Button } from '@/components/ui/button'
 
 const titleLines = [
   { text: 'Better BE', delay: 0.3 },
@@ -63,16 +62,51 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.95, ease: 'easeOut' }}
         >
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-            <Button asChild className="bg-[#111111] text-white px-8 py-3 text-sm font-semibold rounded-none border border-[#111111] hover:bg-white hover:text-[#111111] transition-colors duration-300">
-              <a href="#contact">제작 문의</a>
-            </Button>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-            <Button asChild variant="outline" className="px-8 py-3 text-sm font-semibold rounded-none border-[#111111]/15 text-[#111111]/45 hover:border-[#111111] hover:text-[#111111] transition-colors duration-300">
-              <a href="#projects">작업물</a>
-            </Button>
-          </motion.div>
+          {/* fill-from-bottom 버튼 */}
+          <motion.a
+            href="#contact"
+            className="relative overflow-hidden px-8 py-3 text-sm font-semibold border border-[#111111] text-white bg-[#111111] inline-block"
+            whileHover="hover"
+            whileTap={{ scale: 0.97 }}
+          >
+            <motion.span
+              className="absolute inset-0 bg-white origin-bottom"
+              variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
+              initial="initial"
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: 'bottom' }}
+            />
+            <motion.span
+              className="relative z-10"
+              variants={{ hover: { color: '#111111' }, initial: { color: '#ffffff' } }}
+              transition={{ duration: 0.2 }}
+            >
+              제작 문의
+            </motion.span>
+          </motion.a>
+
+          {/* outline fill 버튼 */}
+          <motion.a
+            href="#projects"
+            className="relative overflow-hidden px-8 py-3 text-sm font-semibold border border-[#111111]/20 text-[#111111]/45 inline-block"
+            whileHover="hover"
+            whileTap={{ scale: 0.97 }}
+          >
+            <motion.span
+              className="absolute inset-0 bg-[#111111] origin-bottom"
+              variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
+              initial="initial"
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: 'bottom' }}
+            />
+            <motion.span
+              className="relative z-10"
+              variants={{ hover: { color: '#ffffff' }, initial: { color: 'rgba(17,17,17,0.45)' } }}
+              transition={{ duration: 0.2 }}
+            >
+              작업물
+            </motion.span>
+          </motion.a>
         </motion.div>
       </motion.div>
 

@@ -14,8 +14,10 @@ export default function ProjectCard({ project }: Props) {
   return (
     <motion.div
       className="relative bg-white border border-[#E5E5E5] overflow-hidden group cursor-pointer"
-      whileHover={{ y: -6, boxShadow: '0 20px 60px -10px rgba(0,0,0,0.12)' }}
-      transition={{ duration: 0.25, ease: 'easeOut' }}
+      initial="rest"
+      whileHover="hover"
+      animate="rest"
+      variants={{ rest: { y: 0, boxShadow: '0 0px 0px 0px rgba(0,0,0,0)' }, hover: { y: -6, boxShadow: '0 20px 60px -10px rgba(0,0,0,0.12)', transition: { duration: 0.3, ease: 'easeOut' } } }}
     >
       {/* 호버 시 테두리 강조 */}
       <motion.div
@@ -48,38 +50,24 @@ export default function ProjectCard({ project }: Props) {
             />
 
             {/* 다크 오버레이 */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-colors duration-400" />
 
-            {/* 재생 버튼 */}
-            <div className="absolute inset-0 flex items-center justify-center">
+            {/* 재생 버튼 — 아래서 올라오는 효과 */}
+            <div className="absolute inset-0 flex items-end justify-center pb-5 pointer-events-none">
               <motion.div
-                className="w-16 h-16 bg-white flex items-center justify-center"
-                initial={{ scale: 0.8, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 0 }}
-                whileHover={{ scale: 1.05 }}
-                animate={{ scale: 1 }}
+                className="flex items-center gap-2 bg-white px-5 py-2.5"
+                initial={{ y: 20, opacity: 0 }}
+                variants={{
+                  rest: { y: 20, opacity: 0 },
+                  hover: { y: 0, opacity: 1, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } },
+                }}
               >
-                <motion.div
-                  className="w-16 h-16 bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100"
-                >
-                  <svg className="w-6 h-6 text-[#111111] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </motion.div>
+                <svg className="w-4 h-4 text-[#111111]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <span className="text-xs font-bold text-[#111111] tracking-wider uppercase">Play</span>
               </motion.div>
             </div>
-
-            {/* 샤인 스윕 효과 */}
-            <motion.div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none"
-              style={{
-                background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%)',
-                backgroundSize: '200% 100%',
-              }}
-              initial={{ backgroundPositionX: '200%' }}
-              whileHover={{ backgroundPositionX: '-50%' }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-            />
           </>
         )}
       </div>
