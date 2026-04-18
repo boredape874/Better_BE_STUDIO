@@ -7,6 +7,15 @@ export default function ProjectGallery() {
     <section id="projects" className="py-32 px-6 bg-[#F8F8F8]">
       <div className="max-w-5xl mx-auto">
 
+        {/* 섹션 구분선 드로우 */}
+        <motion.div
+          className="w-full h-px bg-[#111111]/10 mb-16 origin-left"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: 'easeInOut' }}
+        />
+
         {/* 헤딩 */}
         <div className="mb-16">
           <motion.p

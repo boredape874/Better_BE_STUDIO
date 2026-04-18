@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import MagneticButton from './MagneticButton'
 import TextScramble from './TextScramble'
+import FloatingParticles from './FloatingParticles'
 
 const titleLines = [
   { text: 'Better BE', delay: 0.3 },
@@ -15,6 +16,8 @@ export default function Hero() {
 
   return (
     <section ref={ref} className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 bg-white overflow-hidden">
+
+      <FloatingParticles />
 
       <motion.div
         className="relative z-10 flex flex-col items-center"
