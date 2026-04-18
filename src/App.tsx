@@ -5,11 +5,15 @@ import ProjectGallery from '@/components/ProjectGallery'
 import Contact from '@/components/Contact'
 import ScrollToTop from '@/components/ScrollToTop'
 import PageIntro from '@/components/PageIntro'
+import Cursor from '@/components/Cursor'
+import ScrollProgress from '@/components/ScrollProgress'
 
 export default function App() {
   return (
     <MotionConfig reducedMotion="never">
       <div className="font-sans antialiased">
+        <Cursor />
+        <ScrollProgress />
         <PageIntro />
         <Navbar />
         <main>
