@@ -17,8 +17,8 @@ export default function PageIntro() {
       {phase === 'in' && (
         <motion.div
           className="fixed inset-0 z-[200] bg-[#111111] flex flex-col items-center justify-center overflow-hidden pointer-events-none"
-          exit={{ y: '-100%', opacity: 0 }}
-          transition={{ duration: 1.0, ease: [0.76, 0, 0.24, 1] }}
+          exit={{ y: '-100%' }}
+          transition={{ duration: 1.0, delay: 0.15, ease: [0.76, 0, 0.24, 1] }}
         >
           {/* 가로선 드로우 */}
           <motion.div
@@ -29,31 +29,38 @@ export default function PageIntro() {
             style={{ originX: 0 }}
           />
 
-          {/* 브랜드명 */}
-          <div className="flex items-center overflow-hidden">
-            {BRAND.split('').map((char, i) => (
-              <motion.span
-                key={i}
-                className={`text-white font-black leading-none ${char === ' ' ? 'w-4' : ''}`}
-                style={{ fontSize: 'clamp(2rem, 6vw, 5rem)' }}
-                initial={{ y: 80, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.55, delay: 0.5 + i * 0.045, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {char === ' ' ? '\u00A0' : char}
-              </motion.span>
-            ))}
-          </div>
-
-          {/* 서브타이틀 */}
-          <motion.p
-            className="text-white/30 text-xs tracking-[0.45em] uppercase mt-4"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.6, ease: 'easeOut' }}
+          {/* 텍스트 콘텐츠 — 종료 시 안으로 줄어들며 위로 */}
+          <motion.div
+            className="flex flex-col items-center"
+            exit={{ scale: 0.78, y: -55, opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.55, 0, 1, 0.45] }}
           >
-            {SUB}
-          </motion.p>
+            {/* 브랜드명 */}
+            <div className="flex items-center overflow-hidden">
+              {BRAND.split('').map((char, i) => (
+                <motion.span
+                  key={i}
+                  className={`text-white font-black leading-none ${char === ' ' ? 'w-4' : ''}`}
+                  style={{ fontSize: 'clamp(2rem, 6vw, 5rem)' }}
+                  initial={{ y: 80, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.55, delay: 0.5 + i * 0.045, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </motion.span>
+              ))}
+            </div>
+
+            {/* 서브타이틀 */}
+            <motion.p
+              className="text-white/30 text-xs tracking-[0.45em] uppercase mt-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.6, ease: 'easeOut' }}
+            >
+              {SUB}
+            </motion.p>
+          </motion.div>
 
           {/* 로딩 바 */}
           <motion.div

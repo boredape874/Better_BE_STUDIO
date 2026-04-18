@@ -6,7 +6,7 @@ import TextScramble from './TextScramble'
 // ── 공통 스프링 설정 ──────────────────────────────
 const SPRING = { type: 'spring' as const, stiffness: 260, damping: 26, mass: 1 }
 
-// 줄 단위 클립 리빌 (오버플로 마스크 + 슬라이드업)
+// 줄 단위 클립 리빌 + 블러 포커스인
 function LineReveal({
   children,
   delay = 0,
@@ -18,12 +18,20 @@ function LineReveal({
 }) {
   return (
     <div className={`overflow-hidden ${className}`}>
+      {/* 클립 마스크 슬라이드업 */}
       <motion.div
-        initial={{ y: '102%' }}
+        initial={{ y: '103%' }}
         animate={{ y: '0%' }}
         transition={{ ...SPRING, delay }}
       >
-        {children}
+        {/* 블러 포커스인 */}
+        <motion.div
+          initial={{ opacity: 0, filter: 'blur(14px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 0.65, delay: delay + 0.08, ease: 'easeOut' }}
+        >
+          {children}
+        </motion.div>
       </motion.div>
     </div>
   )
@@ -55,10 +63,10 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* 타이틀 — 줄 단위 클립 리빌 */}
+        {/* 타이틀 — 줄 단위 블러+클립 리빌 */}
         <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight mb-12">
           <LineReveal delay={0.35}>Better BE</LineReveal>
-          <LineReveal delay={0.5}>Studio</LineReveal>
+          <LineReveal delay={0.52}>Studio</LineReveal>
         </h1>
 
         {/* 설명 */}
@@ -67,7 +75,7 @@ export default function Hero() {
             className="text-base text-[#111111]/40 max-w-[280px] leading-loose"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ ...SPRING, delay: 0.7 }}
+            transition={{ ...SPRING, delay: 0.76 }}
           >
             HUD, 애드온, 리소스팩<br />원하는 것을 만들어 드립니다
           </motion.p>
@@ -78,7 +86,7 @@ export default function Hero() {
           className="flex gap-3"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ ...SPRING, delay: 0.88 }}
+          transition={{ ...SPRING, delay: 0.92 }}
         >
           <MagneticButton>
             <motion.a
