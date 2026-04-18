@@ -3,7 +3,6 @@ import { useRef } from 'react'
 import MagneticButton from './MagneticButton'
 import TextScramble from './TextScramble'
 
-// ── 공통 스프링 설정 ──────────────────────────────
 const SPRING = { type: 'spring' as const, stiffness: 260, damping: 26, mass: 1 }
 
 // 줄 단위 클립 리빌 + 블러 포커스인
@@ -18,13 +17,11 @@ function LineReveal({
 }) {
   return (
     <div className={`overflow-hidden ${className}`}>
-      {/* 클립 마스크 슬라이드업 */}
       <motion.div
         initial={{ y: '103%' }}
         animate={{ y: '0%' }}
         transition={{ ...SPRING, delay }}
       >
-        {/* 블러 포커스인 */}
         <motion.div
           initial={{ opacity: 0, filter: 'blur(14px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -63,11 +60,41 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* 타이틀 — 줄 단위 블러+클립 리빌 */}
-        <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight mb-12">
-          <LineReveal delay={0.35}>Better BE</LineReveal>
-          <LineReveal delay={0.52}>Studio</LineReveal>
-        </h1>
+        {/* 타이틀 — 리빌 후 float + shimmer 아이들 애니메이션 */}
+        <div className="relative mb-12">
+          <motion.h1
+            className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight"
+            // 리빌 완료 후 천천히 float
+            animate={{ y: [0, -7, 0] }}
+            transition={{
+              delay: 1.8,
+              duration: 5.5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          >
+            <LineReveal delay={0.35}>Better BE</LineReveal>
+            <LineReveal delay={0.52}>Studio</LineReveal>
+          </motion.h1>
+
+          {/* Shimmer sweep — 7초마다 하이라이트가 스윽 지나감 */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'linear-gradient(105deg, transparent 25%, rgba(255,255,255,0.55) 50%, transparent 75%)',
+              mixBlendMode: 'overlay',
+            }}
+            animate={{ x: ['-130%', '130%'] }}
+            transition={{
+              delay: 2.4,
+              duration: 1.4,
+              repeat: Infinity,
+              repeatDelay: 6,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+          />
+        </div>
 
         {/* 설명 */}
         <div className="overflow-hidden mb-14">
