@@ -2,13 +2,11 @@
 
 * { cursor: none !important; }
 
-/* 풀페이지 스크롤 스냅 — window 스크롤 기준 */
+/* 자연 스크롤 방지 — 프로그래밍 방식 scrollIntoView만 허용 */
 html {
-  scroll-snap-type: y mandatory;
   overflow-y: scroll;
 }
 
 .snap-section {
-  scroll-snap-align: start;
   height: 100vh;
 }

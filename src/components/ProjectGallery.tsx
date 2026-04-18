@@ -4,49 +4,8 @@ import { projects } from '@/data/projects'
 
 export default function ProjectGallery() {
   return (
-    <section id="projects" className="snap-section relative bg-[#F8F8F8] flex items-center">
-
-      {/* ── 커튼 (overflow-hidden 래퍼 안에서 y 슬라이드) ── */}
-      <div className="absolute inset-0 overflow-hidden z-20 pointer-events-none">
-        <motion.div
-          className="absolute inset-0 bg-[#111111] flex flex-col items-center justify-center gap-6"
-          initial={{ y: '0%' }}
-          whileInView={{ y: '-100%' }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 1.0, delay: 1.0, ease: [0.76, 0, 0.24, 1] }}
-        >
-          {/* 커튼 위 타이틀 */}
-          <motion.div
-            className="text-center"
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <p className="text-white/30 text-[11px] tracking-[0.5em] uppercase mb-6">
-              01 · Projects
-            </p>
-            <h2
-              className="text-white font-black tracking-tight leading-none"
-              style={{ fontSize: 'clamp(4rem, 12vw, 9rem)' }}
-            >
-              작업물
-            </h2>
-          </motion.div>
-
-          {/* 하단 로딩 바 */}
-          <motion.div
-            className="absolute bottom-0 left-0 h-px bg-white/20"
-            initial={{ width: '0%' }}
-            whileInView={{ width: '100%' }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.9, delay: 0.15, ease: 'easeInOut' }}
-          />
-        </motion.div>
-      </div>
-
-      {/* ── 실제 콘텐츠 ── */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6">
+    <section id="projects" className="snap-section bg-[#F8F8F8] flex items-center">
+      <div className="w-full max-w-5xl mx-auto px-6">
 
         <div className="mb-12">
           <motion.p
@@ -54,7 +13,7 @@ export default function ProjectGallery() {
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
             Projects
           </motion.p>
@@ -64,7 +23,7 @@ export default function ProjectGallery() {
               initial={{ y: '105%' }}
               whileInView={{ y: '0%' }}
               viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
               작업물
             </motion.h2>
@@ -77,7 +36,7 @@ export default function ProjectGallery() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={{
-            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.45 } },
+            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.3 } },
           }}
         >
           {projects.map((project) => (
@@ -85,10 +44,7 @@ export default function ProjectGallery() {
               key={project.id}
               variants={{
                 hidden: { opacity: 0, y: 36 },
-                visible: {
-                  opacity: 1, y: 0,
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-                },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
               }}
             >
               <ProjectCard project={project} />

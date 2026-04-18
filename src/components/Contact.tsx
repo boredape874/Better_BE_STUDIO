@@ -12,56 +12,15 @@ function DiscordIcon() {
 
 export default function Contact() {
   return (
-    <section id="contact" className="snap-section relative bg-white flex items-center justify-center">
-
-      {/* ── 커튼 (overflow-hidden 래퍼 안에서 y 슬라이드) ── */}
-      <div className="absolute inset-0 overflow-hidden z-20 pointer-events-none">
-        <motion.div
-          className="absolute inset-0 bg-[#111111] flex flex-col items-center justify-center gap-6"
-          initial={{ y: '0%' }}
-          whileInView={{ y: '-100%' }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 1.0, delay: 1.0, ease: [0.76, 0, 0.24, 1] }}
-        >
-          {/* 커튼 위 타이틀 */}
-          <motion.div
-            className="text-center"
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <p className="text-white/30 text-[11px] tracking-[0.5em] uppercase mb-6">
-              02 · Contact
-            </p>
-            <h2
-              className="text-white font-black tracking-tight leading-none"
-              style={{ fontSize: 'clamp(4rem, 12vw, 9rem)' }}
-            >
-              제작 문의
-            </h2>
-          </motion.div>
-
-          {/* 하단 로딩 바 */}
-          <motion.div
-            className="absolute bottom-0 left-0 h-px bg-white/20"
-            initial={{ width: '0%' }}
-            whileInView={{ width: '100%' }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.9, delay: 0.15, ease: 'easeInOut' }}
-          />
-        </motion.div>
-      </div>
-
-      {/* ── 실제 콘텐츠 ── */}
-      <div className="relative z-10 max-w-md mx-auto px-6 text-center">
+    <section id="contact" className="snap-section bg-white flex items-center justify-center">
+      <div className="max-w-md mx-auto px-6 text-center">
 
         <motion.p
           className="text-[10px] font-semibold tracking-[0.45em] uppercase text-[#111111]/25 mb-4"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
           Contact
         </motion.p>
@@ -72,7 +31,7 @@ export default function Contact() {
             initial={{ y: '105%' }}
             whileInView={{ y: '0%' }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             제작 문의
           </motion.h2>
@@ -83,7 +42,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.45 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
         >
           HUD, 애드온, 리소스팩 등<br />디스코드에서 편하게 말씀해 주세요
         </motion.p>
@@ -96,7 +55,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ type: 'spring', stiffness: 280, damping: 22, delay: 0.6 }}
+          transition={{ type: 'spring', stiffness: 280, damping: 22, delay: 0.5 }}
           whileHover="hover"
           whileTap={{ scale: 0.97 }}
         >
