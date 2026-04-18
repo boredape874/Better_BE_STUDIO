@@ -44,22 +44,27 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 bg-white overflow-hidden"
     >
-      {/* float + shimmer 키프레임 */}
+      {/* 타이틀 그라데이션 흐름 */}
       <style>{`
-        @keyframes heroFloat {
-          0%, 100% { transform: translateY(0px); }
-          50%       { transform: translateY(-9px); }
+        @keyframes titleFlow {
+          0%   { background-position: 0% center; }
+          100% { background-position: 200% center; }
         }
-        .hero-title-float {
-          animation: heroFloat 5.5s ease-in-out 1.8s infinite;
-        }
-        @keyframes heroShimmer {
-          0%   { transform: translateX(-140%); }
-          18%  { transform: translateX(140%); }
-          100% { transform: translateX(140%); }
-        }
-        .hero-title-shimmer {
-          animation: heroShimmer 8s linear 2.6s infinite;
+        .title-flow {
+          background: linear-gradient(
+            90deg,
+            #111111 0%,
+            #111111 20%,
+            #666666 40%,
+            #111111 60%,
+            #111111 80%,
+            #666666 100%
+          );
+          background-size: 200% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: titleFlow 6s linear 2s infinite;
         }
       `}</style>
 
@@ -79,27 +84,13 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* 타이틀 — 리빌 후 float + shimmer */}
-        <div className="relative mb-12">
-          {/* float wrapper */}
-          <div className="hero-title-float">
-            <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.92] tracking-tight">
-              <LineReveal delay={0.35}>Better BE</LineReveal>
-              <LineReveal delay={0.52}>Studio</LineReveal>
-            </h1>
-          </div>
-
-          {/* shimmer overlay */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div
-              className="hero-title-shimmer absolute inset-0"
-              style={{
-                background:
-                  'linear-gradient(105deg, transparent 20%, rgba(200,200,200,0.35) 50%, transparent 80%)',
-              }}
-            />
-          </div>
-        </div>
+        {/* 타이틀 — 리빌 후 그라데이션 흐름 */}
+        <h1
+          className="title-flow text-[clamp(4.5rem,13vw,10rem)] font-black leading-[0.92] tracking-tight mb-12"
+        >
+          <LineReveal delay={0.35}>Better BE</LineReveal>
+          <LineReveal delay={0.52}>Studio</LineReveal>
+        </h1>
 
         {/* 설명 */}
         <div className="overflow-hidden mb-14">
