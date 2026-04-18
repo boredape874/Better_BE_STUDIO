@@ -14,101 +14,73 @@ export default function Contact() {
   return (
     <section id="contact" className="relative py-32 px-6 bg-white overflow-hidden">
 
-      {/* 배경 섹션 번호 */}
-      <motion.span
-        className="absolute left-6 top-12 text-[clamp(8rem,22vw,18rem)] font-black leading-none select-none pointer-events-none"
-        style={{ color: 'rgba(17,17,17,0.04)' }}
-        initial={{ opacity: 0, x: -80 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-      >
-        02
-      </motion.span>
+      {/* 커튼 — 위로 슬라이드하며 섹션 오픈 */}
+      <motion.div
+        className="absolute inset-0 bg-[#111111] z-10 pointer-events-none"
+        initial={{ y: '0%' }}
+        whileInView={{ y: '-101%' }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
+      />
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-md mx-auto text-center">
 
-        {/* 섹션 구분선 */}
-        <motion.div
-          className="w-full h-px bg-[#111111]/10 mb-16 origin-left"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
+        <motion.p
+          className="text-[10px] font-semibold tracking-[0.45em] uppercase text-[#111111]/25 mb-4"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-        />
+          transition={{ duration: 0.7, delay: 0.6, ease: 'easeOut' }}
+        >
+          Contact
+        </motion.p>
 
-        <div className="max-w-md mx-auto text-center">
-
-          {/* 레이블 — 클립 리빌 */}
-          <div className="overflow-hidden mb-4">
-            <motion.p
-              className="text-[10px] font-semibold tracking-[0.45em] uppercase text-[#111111]/25"
-              initial={{ y: '110%' }}
-              whileInView={{ y: '0%' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
-              Contact
-            </motion.p>
-          </div>
-
-          {/* 헤딩 — 블러 + 클립 리빌 */}
-          <div className="overflow-hidden mb-14">
-            <motion.div
-              initial={{ y: '103%' }}
-              whileInView={{ y: '0%' }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.0, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <motion.h2
-                className="text-4xl font-black text-[#111111] tracking-tight"
-                initial={{ opacity: 0, filter: 'blur(12px)' }}
-                whileInView={{ opacity: 1, filter: 'blur(0px)' }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.65, delay: 0.62, ease: 'easeOut' }}
-              >
-                제작 문의
-              </motion.h2>
-            </motion.div>
-          </div>
-
-          {/* 설명 */}
-          <motion.p
-            className="text-sm text-[#111111]/40 mb-12 leading-loose"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        <div className="overflow-hidden mb-14">
+          <motion.h2
+            className="text-4xl font-black text-[#111111] tracking-tight"
+            initial={{ y: '105%' }}
+            whileInView={{ y: '0%' }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
           >
-            HUD, 애드온, 리소스팩 등<br />디스코드에서 편하게 말씀해 주세요
-          </motion.p>
-
-          {/* 디스코드 버튼 — 스케일 + 슬라이드업 */}
-          <motion.a
-            href={DISCORD_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative overflow-hidden inline-flex items-center gap-3 bg-[#5865F2] text-white px-10 py-4 text-sm font-bold"
-            initial={{ opacity: 0, y: 32, scale: 0.94 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 280, damping: 22, delay: 1.05 }}
-            whileHover="hover"
-            whileTap={{ scale: 0.97 }}
-          >
-            <motion.span
-              className="absolute inset-0 bg-[#4752C4] origin-bottom"
-              variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
-              initial="initial"
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: 'bottom' }}
-            />
-            <span className="relative z-10 flex items-center gap-3">
-              <DiscordIcon />
-              디스코드 서버 참여하기
-            </span>
-          </motion.a>
+            제작 문의
+          </motion.h2>
         </div>
+
+        <motion.p
+          className="text-sm text-[#111111]/40 mb-12 leading-loose"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.9, ease: 'easeOut' }}
+        >
+          HUD, 애드온, 리소스팩 등<br />디스코드에서 편하게 말씀해 주세요
+        </motion.p>
+
+        <motion.a
+          href={DISCORD_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative overflow-hidden inline-flex items-center gap-3 bg-[#5865F2] text-white px-10 py-4 text-sm font-bold"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ type: 'spring', stiffness: 280, damping: 22, delay: 1.05 }}
+          whileHover="hover"
+          whileTap={{ scale: 0.97 }}
+        >
+          <motion.span
+            className="absolute inset-0 bg-[#4752C4] origin-bottom"
+            variants={{ hover: { scaleY: 1 }, initial: { scaleY: 0 } }}
+            initial="initial"
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            style={{ transformOrigin: 'bottom' }}
+          />
+          <span className="relative z-10 flex items-center gap-3">
+            <DiscordIcon />
+            디스코드 서버 참여하기
+          </span>
+        </motion.a>
       </div>
     </section>
   )

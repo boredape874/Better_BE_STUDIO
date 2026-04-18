@@ -6,63 +6,39 @@ export default function ProjectGallery() {
   return (
     <section id="projects" className="relative py-32 px-6 bg-[#F8F8F8] overflow-hidden">
 
-      {/* 배경 섹션 번호 */}
-      <motion.span
-        className="absolute right-6 top-12 text-[clamp(8rem,22vw,18rem)] font-black leading-none select-none pointer-events-none"
-        style={{ color: 'rgba(17,17,17,0.04)' }}
-        initial={{ opacity: 0, x: 80 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-      >
-        01
-      </motion.span>
+      {/* 커튼 — 위로 슬라이드하며 섹션 오픈 */}
+      <motion.div
+        className="absolute inset-0 bg-[#111111] z-10 pointer-events-none"
+        initial={{ y: '0%' }}
+        whileInView={{ y: '-101%' }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
+      />
 
       <div className="max-w-5xl mx-auto">
 
-        {/* 섹션 구분선 */}
-        <motion.div
-          className="w-full h-px bg-[#111111]/10 mb-16 origin-left"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-        />
-
         {/* 헤딩 */}
         <div className="mb-16">
+          <motion.p
+            className="text-[10px] font-semibold tracking-[0.45em] uppercase text-[#111111]/25 mb-4"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.6, ease: 'easeOut' }}
+          >
+            Projects
+          </motion.p>
 
-          {/* 레이블 — 왼쪽에서 슬라이드인 */}
-          <div className="overflow-hidden mb-4">
-            <motion.p
-              className="text-[10px] font-semibold tracking-[0.45em] uppercase text-[#111111]/25"
-              initial={{ y: '110%' }}
-              whileInView={{ y: '0%' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
-              Projects
-            </motion.p>
-          </div>
-
-          {/* 헤딩 — 블러 + 클립 리빌 */}
           <div className="overflow-hidden">
-            <motion.div
-              initial={{ y: '103%' }}
+            <motion.h2
+              className="text-4xl font-black text-[#111111] tracking-tight"
+              initial={{ y: '105%' }}
               whileInView={{ y: '0%' }}
               viewport={{ once: true }}
-              transition={{ duration: 1.0, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.9, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
             >
-              <motion.h2
-                className="text-4xl font-black text-[#111111] tracking-tight"
-                initial={{ opacity: 0, filter: 'blur(12px)' }}
-                whileInView={{ opacity: 1, filter: 'blur(0px)' }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.65, delay: 0.62, ease: 'easeOut' }}
-              >
-                작업물
-              </motion.h2>
-            </motion.div>
+              작업물
+            </motion.h2>
           </div>
         </div>
 
@@ -71,17 +47,19 @@ export default function ProjectGallery() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          variants={{ visible: { transition: { staggerChildren: 0.18, delayChildren: 0.2 } } }}
+          viewport={{ once: true, margin: '-40px' }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.15, delayChildren: 0.9 } },
+          }}
         >
           {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={{
-                hidden: { opacity: 0, y: 50, scale: 0.96 },
+                hidden: { opacity: 0, y: 40 },
                 visible: {
-                  opacity: 1, y: 0, scale: 1,
-                  transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
+                  opacity: 1, y: 0,
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
             >
