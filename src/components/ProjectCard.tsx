@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useRef } from 'react'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import type { Project } from '@/data/projects'
 
@@ -10,14 +10,33 @@ interface Props {
 export default function ProjectCard({ project }: Props) {
   const [playing, setPlaying] = useState(false)
   const thumbnailUrl = `https://img.youtube.com/vi/${project.youtubeId}/hqdefault.jpg`
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const rawX = useMotionValue(0)
+  const rawY = useMotionValue(0)
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [6, -6]), { stiffness: 300, damping: 30 })
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-6, 6]), { stiffness: 300, damping: 30 })
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (playing) return
+    const rect = cardRef.current?.getBoundingClientRect()
+    if (!rect) return
+    rawX.set((e.clientX - rect.left) / rect.width - 0.5)
+    rawY.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
+  const onMouseLeave = () => { rawX.set(0); rawY.set(0) }
 
   return (
     <motion.div
+      ref={cardRef}
       className="relative bg-white border border-[#E5E5E5] overflow-hidden group cursor-pointer"
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
       initial="rest"
       whileHover="hover"
       animate="rest"
-      variants={{ rest: { y: 0, boxShadow: '0 0px 0px 0px rgba(0,0,0,0)' }, hover: { y: -6, boxShadow: '0 20px 60px -10px rgba(0,0,0,0.12)', transition: { duration: 0.3, ease: 'easeOut' } } }}
+      variants={{ rest: { y: 0, boxShadow: '0 0px 0px 0px rgba(0,0,0,0)' }, hover: { y: -6, boxShadow: '0 24px 60px -10px rgba(0,0,0,0.14)', transition: { duration: 0.3, ease: 'easeOut' } } }}
     >
       {/* 호버 시 테두리 강조 */}
       <motion.div

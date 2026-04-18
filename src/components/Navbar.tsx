@@ -21,7 +21,7 @@ export default function Navbar() {
     >
       <span className="font-bold text-[#111111] tracking-tight text-lg">
         Better BE Studio{' '}
-        <span className="text-xs font-normal text-[#111111]/40 tracking-widest uppercase ml-1">MC:BE</span>
+        <span className="text-xs font-normal text-[#111111]/40 tracking-widest uppercase ml-1">MCBE</span>
       </span>
 
       {/* 밑줄 확장 링크 */}

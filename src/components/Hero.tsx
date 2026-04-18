@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import MagneticButton from './MagneticButton'
+import TextScramble from './TextScramble'
 
 const titleLines = [
   { text: 'Better BE', delay: 0.3 },
@@ -19,17 +20,15 @@ export default function Hero() {
         className="relative z-10 flex flex-col items-center"
         style={{ y: contentY }}
       >
-        {/* 태그라인 */}
-        <div className="overflow-hidden mb-10">
-          <motion.p
-            className="text-[11px] font-semibold tracking-[0.5em] uppercase text-[#111111]/30"
-            initial={{ y: 24, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.0, delay: 0.1, ease: 'easeOut' }}
-          >
-            Minecraft BE · 주문제작 스튜디오
-          </motion.p>
-        </div>
+        {/* 태그라인 — 스크램블 */}
+        <motion.p
+          className="text-[11px] font-semibold tracking-[0.5em] uppercase text-[#111111]/30 mb-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          <TextScramble text="MINECRAFT BE · 주문제작 스튜디오" delay={0.3} />
+        </motion.p>
 
         {/* 타이틀 */}
         <h1 className="text-[clamp(4.5rem,13vw,10rem)] font-black text-[#111111] leading-[0.88] tracking-tight mb-12">
